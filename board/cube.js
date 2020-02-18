@@ -19,13 +19,25 @@ export class Cube extends Phaser.GameObjects.Container {
   }
 
   _buildText() {
-    const text = this.scene.add.text(0, 0, "2", {
-      fontFamily: '"Arial"',
-      color: "blue",
-      align: "center",
-      fontSize: 60
-    });
-    text.setOrigin(0.5);
-    this.add(text);
+    let r = Math.random();
+    if (r > 0.5) {
+      const text = this.scene.add.text(0, 0, "3", {
+        fontFamily: '"Arial"',
+        color: "blue",
+        align: "center",
+        fontSize: 60
+      });
+      text.setOrigin(0.5);
+      this.add(text);
+    } else if (r < 0.5) {
+      const text = this.scene.add.text(0, 0, "6", {
+        fontFamily: '"Arial"',
+        color: "blue",
+        align: "center",
+        fontSize: 60
+      });
+      text.setOrigin(0.5);
+      this.add(text);
+    }
   }
 }
