@@ -56,37 +56,9 @@ export class Board extends Phaser.GameObjects.Container {
     this.addRandom();
     this.addRandom();
 
-    // this.input.keyboard.on("keyup", this.handleKey, this);
     this._buildHitArea();
+    this.event();
   }
-
-  // handleKey(event) {
-  //   switch (event.code) {
-  //     case "KeyA":
-  //       console.log("A");
-  //       this.handleMove(-1, 0);
-
-  //       break;
-  //     case "KeyD":
-  //       console.log("D");
-  //       this.handleMove(1, 0);
-
-  //       break;
-  //     case "KeyW":
-  //       console.log("W");
-  //       this.handleMove(0, -1);
-
-  //       break;
-  //     case "KeyS":
-  //       console.log("S");
-  //       this.handleMove(0, 1);
-
-  //       break;
-  //     default:
-  //       // statements_def
-  //       break;
-  //   }
-  // }
 
   handleMove(horizontal, vertical) {
     let i = 0;
@@ -103,7 +75,6 @@ export class Board extends Phaser.GameObjects.Container {
 
     for (; i < 4 && i >= 0; vertical > 0 ? i-- : i++) {
       for (j = tempj; j < 4 && j >= 0; horizontal > 0 ? j-- : j++) {
-        console.log("(i,j)", i, j);
         let field = this.fieldArray[i][j];
         if (field.value > 0) {
           let newX = i + vertical;
@@ -119,9 +90,6 @@ export class Board extends Phaser.GameObjects.Container {
             field = this.fieldArray[newX][newY];
             newX += vertical;
             newY += horizontal;
-            console.log("while içinde");
-            console.log("yeni x ve y", newX, newY);
-            console.log();
           }
         }
       }
@@ -134,11 +102,8 @@ export class Board extends Phaser.GameObjects.Container {
 
   moveTile(field, x, y, isEqualValue) {
     let newField = this.fieldArray[x][y];
-    console.log("old field value", field.value);
     if (isEqualValue) {
       let value = newField.value + field.value;
-
-      console.log("field value: ", field.value);
 
       field.tileSprite.setVisible(false);
       field.tileText.setVisible(false);
@@ -209,19 +174,41 @@ export class Board extends Phaser.GameObjects.Container {
         let difX = upX - downX;
         let difY = upY - downY;
         if (difX > 0 && difX > difY) {
-          console.log("right");
           this.handleMove(1, 0);
         } else if (difX < 0 && Math.abs(difX) >= Math.abs(difY)) {
-          console.log("left");
           this.handleMove(-1, 0);
         } else if (difY > 0 && Math.abs(difX) < Math.abs(difY)) {
-          console.log("down");
           this.handleMove(0, 1);
         } else if (difY < 0 && Math.abs(difX) <= Math.abs(difY)) {
-          console.log("up");
           this.handleMove(0, -1);
         }
       });
+    });
+  }
+  event() {
+    let that = this;
+    let pressed = false;
+    document.addEventListener("keyup", function(e) {
+      let button = e.which || e.keyCode;
+      let pressed = true;
+      if (pressed) {
+        if (button == "38") {
+          that.handleMove(0, -1);
+          let pressed = false;
+        } else if (button == "40") {
+          that.handleMove(0, 1);
+          let pressed = false;
+        } else if (button == "37") {
+          that.handleMove(-1, 0);
+          let pressed = false;
+        } else if (button == "39") {
+          that.handleMove(1, 0);
+          let pressed = false;
+        } else {
+          alert("Please, use arrow keys or mouse to play :)");
+          let pressed = false;
+        }
+      }
     });
   }
 
