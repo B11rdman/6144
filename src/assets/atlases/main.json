@@ -103,22 +103,14 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
 	"sourceSize": {"w":120,"h":120}
-},
-{
-	"filename": "cub.png",
-	"frame": {"x":0,"y":1570,"w":120,"h":120},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
-	"sourceSize": {"w":120,"h":120}
 }],
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "main.png",
 	"format": "RGBA8888",
-	"size": {"w":120,"h":1690},
+	"size": {"w":120,"h":1570},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ff440d0dd154ecc4a7c593e8cf9eaa20:1b623de8d8aaefce2a52282d17788d4c:03f91ab73e0f4667800419161e658c40$"
+	"smartupdate": "$TexturePacker:SmartUpdate:be84ce05d2de0bcd23df9ddc589c0265:9513877562f2a97f9fdb962fe18e8414:03f91ab73e0f4667800419161e658c40$"
 }
 }

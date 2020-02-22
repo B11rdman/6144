@@ -1,4 +1,4 @@
-import { TEXTURE } from "../src/constants";
+// import { TEXTURE } from "../src/constants";
 
 export class Cell extends Phaser.GameObjects.Container {
   constructor(scene, row, col) {
@@ -31,7 +31,7 @@ export class Cell extends Phaser.GameObjects.Container {
   }
 
   _buildBg() {
-    const bg = this.scene.add.image(0, 0, TEXTURE, "box_bg.png");
+    // const bg = this.scene.add.image(0, 0, TEXTURE, "box_bg.png");
     this.add((this._bg = bg));
 
     const { displayWidth, displayHeight } = bg;

@@ -1,5 +1,3 @@
-import { TEXTURE } from "../src/constants";
-
 export class Cube extends Phaser.GameObjects.Container {
   constructor(scene) {
     super(scene);
@@ -13,9 +11,16 @@ export class Cube extends Phaser.GameObjects.Container {
   }
 
   _buildBg() {
-    const bg = this.scene.add.image(0, 0, TEXTURE, "cub.png");
-    this.add((this._bg = bg));
-    bg.setTint(0x00ff00);
+    const gr = this.scene.add.graphics();
+
+    gr.fillStyle(0xffff00, 1);
+
+    //  32px radius on the corners
+    gr.fillRoundedRect(0, 0, 200, 200, 4);
+
+    // const bg = this.scene.add.image(0, 0, TEXTURE, "cub.png");
+    this.add((this._bg = gr));
+    // bg.setTint(0x00ff00);
   }
 
   _buildText() {

@@ -3,7 +3,7 @@ export const SceneNames = {
   game: "GameScene"
 };
 
-export const TEXTURE = "mainAtlas";
+// export const TEXTURE = "mainAtlas";
 
 export const BOARD_DIMENSIONS = Object.freeze({
   width: 4,

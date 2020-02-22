@@ -1,13 +1,18 @@
 export class Board extends Phaser.GameObjects.Container {
   constructor(scene) {
     super(scene);
-    this.makeBox();
+    // this.makeBox();
     this.buildBoard();
     this._buildHitArea();
+    this.score = 0;
+    this.pressed = false;
+    this.won = false;
+    this.score = 0;
   }
-  makeBox() {
-    this.scene.load.image("tile", "images\tile.png");
-  }
+
+  // makeBox() {
+  //   this.scene.load.image("tile", "images\tile.png");
+  // }
 
   buildBoard() {
     this.fieldGroup = new Phaser.GameObjects.Group();
@@ -51,11 +56,17 @@ export class Board extends Phaser.GameObjects.Container {
           value: 0
         };
       }
+      this.scoreText = this.scene.add
+        .text(820, 30, `Score`, {
+          fontFamily: '"Arial Black"',
+          color: "#ffffff",
+          fontSize: 24
+        })
+        .setDepth(1000);
     }
 
     this.addRandom();
     this.addRandom();
-
     this._buildHitArea();
     this.event();
   }
@@ -84,13 +95,25 @@ export class Board extends Phaser.GameObjects.Container {
             (this.fieldArray[newX][newY].value == field.value ||
               this.fieldArray[newX][newY].value == 0)
           ) {
-            let isEqualValue = this.fieldArray[newX][newY].value == field.value;
+            let isEqualValue = false;
+            if (this.fieldArray[newX][newY].value == field.value) {
+              this.score += field.value;
+              this.scoreText.setText(`Score ${this.score}.`);
+              isEqualValue = true;
+            }
             isMoved = true;
             this.moveTile(field, newX, newY, isEqualValue);
             field = this.fieldArray[newX][newY];
             newX += vertical;
             newY += horizontal;
           }
+        }
+
+        if (field.value == 6144 && !this.won) {
+          this.won = true;
+          setTimeout(function() {
+            alert("Congratulations. You Won! But you still can keep playing.");
+          }, 200);
         }
       }
     }
@@ -150,17 +173,23 @@ export class Board extends Phaser.GameObjects.Container {
         if (field.value == 0) emptyFields.push(field);
       });
     });
-
+    let r = Math.random();
+    let n = 0;
+    if (r > 0.3) {
+      n = 3;
+    } else {
+      n = 6;
+    }
     let field = Phaser.Utils.Array.GetRandom(emptyFields);
     field.tileSprite.setVisible(true);
     field.tileText.setVisible(true);
-    field.tileText.setText("3");
+    field.tileText.setText(n);
     this.scene.add.tween({
       targets: [field.tileSprite, field.tileText],
       alpha: { value: 1, duration: 1000, ease: "Bounce" }
     });
 
-    field.value = 3;
+    field.value = n;
   }
 
   _buildHitArea() {
@@ -173,40 +202,41 @@ export class Board extends Phaser.GameObjects.Container {
 
         let difX = upX - downX;
         let difY = upY - downY;
-        if (difX > 0 && difX > difY) {
-          this.handleMove(1, 0);
-        } else if (difX < 0 && Math.abs(difX) >= Math.abs(difY)) {
-          this.handleMove(-1, 0);
-        } else if (difY > 0 && Math.abs(difX) < Math.abs(difY)) {
-          this.handleMove(0, 1);
-        } else if (difY < 0 && Math.abs(difX) <= Math.abs(difY)) {
-          this.handleMove(0, -1);
+        if (!this.pressed) {
+          if (difX > 0 && difX > difY) {
+            this.handleMove(1, 0);
+          } else if (difX < 0 && Math.abs(difX) >= Math.abs(difY)) {
+            this.handleMove(-1, 0);
+          } else if (difY > 0 && Math.abs(difX) < Math.abs(difY)) {
+            this.handleMove(0, 1);
+          } else if (difY < 0 && Math.abs(difX) <= Math.abs(difY)) {
+            this.handleMove(0, -1);
+          }
         }
       });
     });
   }
   event() {
     let that = this;
-    let pressed = false;
     document.addEventListener("keyup", function(e) {
       let button = e.which || e.keyCode;
-      let pressed = true;
-      if (pressed) {
+      this.pressed = true;
+      if (this.pressed) {
         if (button == "38") {
           that.handleMove(0, -1);
-          let pressed = false;
+          this.pressed = false;
         } else if (button == "40") {
           that.handleMove(0, 1);
-          let pressed = false;
+          this.pressed = false;
         } else if (button == "37") {
           that.handleMove(-1, 0);
-          let pressed = false;
+          this.pressed = false;
         } else if (button == "39") {
           that.handleMove(1, 0);
-          let pressed = false;
+          this.pressed = false;
         } else {
           alert("Please, use arrow keys or mouse to play :)");
-          let pressed = false;
+          this.pressed = false;
         }
       }
     });

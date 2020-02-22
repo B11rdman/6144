@@ -1,4 +1,4 @@
-import { Board } from "../board/board";
+import { Board } from "./board/board";
 
 export class MainView extends Phaser.GameObjects.Container {
   constructor(scene) {
