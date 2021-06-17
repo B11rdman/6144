@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>4</int>
         <key>texturePackerVersion</key>
-        <string>5.2.0</string>
+        <string>5.5.0</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -181,34 +181,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">../src/raw_asset/01.png</key>
-            <key type="filename">../src/raw_asset/02.png</key>
-            <key type="filename">../src/raw_asset/03.png</key>
-            <key type="filename">../src/raw_asset/04.png</key>
-            <key type="filename">../src/raw_asset/05.png</key>
-            <key type="filename">../src/raw_asset/06.png</key>
-            <key type="filename">../src/raw_asset/07.png</key>
-            <key type="filename">../src/raw_asset/08.png</key>
-            <key type="filename">../src/raw_asset/09.png</key>
-            <key type="filename">../src/raw_asset/10.png</key>
-            <struct type="IndividualSpriteSettings">
-                <key>pivotPoint</key>
-                <point_f>0.5,0.5</point_f>
-                <key>spriteScale</key>
-                <double>1</double>
-                <key>scale9Enabled</key>
-                <false/>
-                <key>scale9Borders</key>
-                <rect>30,30,60,61</rect>
-                <key>scale9Paddings</key>
-                <rect>30,30,60,61</rect>
-                <key>scale9FromFile</key>
-                <false/>
-            </struct>
-            <key type="filename">../src/raw_asset/12.png</key>
-            <key type="filename">../src/raw_asset/13.png</key>
             <key type="filename">../src/raw_asset/box_bg.png</key>
-            <key type="filename">../src/raw_asset/cub.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>

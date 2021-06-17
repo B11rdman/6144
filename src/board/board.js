@@ -1,7 +1,8 @@
+import { TEXTURE } from "../constants";
+
 export class Board extends Phaser.GameObjects.Container {
   constructor(scene) {
     super(scene);
-    // this.makeBox();
     this.buildBoard();
     this._buildHitArea();
     this.score = 0;
@@ -9,10 +10,6 @@ export class Board extends Phaser.GameObjects.Container {
     this.won = false;
     this.score = 0;
   }
-
-  // makeBox() {
-  //   this.scene.load.image("tile", "images\tile.png");
-  // }
 
   buildBoard() {
     this.fieldGroup = new Phaser.GameObjects.Group();
@@ -23,27 +20,18 @@ export class Board extends Phaser.GameObjects.Container {
       for (let j = 0; j < 4; j++) {
         // 100,100 -  300,100 - 500,100 - 700,100
         // 100, 300 - 200
-        let field = this.scene.add.sprite(
-          (j + 1) * 200 - 100,
-          (i + 1) * 200 - 100,
-          "tile"
-        );
+        let field = this.scene.add.sprite((j + 1) * 200 - 100, (i + 1) * 200 - 100, TEXTURE, "box_bg.png");
         field.setVisible(false);
         field.setAlpha(0);
 
         this.fieldGroup.add(field);
 
-        let fieldText = this.scene.add.text(
-          (j + 1) * 200 - 100,
-          (i + 1) * 200 - 100,
-          "3",
-          {
-            fontSize: 100,
-            fontFamily: "Arial",
-            align: "center",
-            color: "#404040"
-          }
-        );
+        let fieldText = this.scene.add.text((j + 1) * 200 - 100, (i + 1) * 200 - 100, "3", {
+          fontSize: 100,
+          fontFamily: "Arial",
+          align: "center",
+          color: "#cccccc",
+        });
         fieldText.setOrigin(0.5, 0.5);
         fieldText.setVisible(false);
         fieldText.setAlpha(0);
@@ -53,14 +41,14 @@ export class Board extends Phaser.GameObjects.Container {
         this.fieldArray[i][j] = {
           tileSprite: field,
           tileText: fieldText,
-          value: 0
+          value: 0,
         };
       }
       this.scoreText = this.scene.add
         .text(820, 30, `Score`, {
-          fontFamily: '"Arial Black"',
+          fontFamily: "Arial Black",
           color: "#ffffff",
-          fontSize: 24
+          fontSize: 24,
         })
         .setDepth(1000);
     }
@@ -92,8 +80,7 @@ export class Board extends Phaser.GameObjects.Container {
           let newY = j + horizontal;
           while (
             this.isOnBoard(newX, newY) &&
-            (this.fieldArray[newX][newY].value == field.value ||
-              this.fieldArray[newX][newY].value == 0)
+            (this.fieldArray[newX][newY].value == field.value || this.fieldArray[newX][newY].value == 0)
           ) {
             let isEqualValue = false;
             if (this.fieldArray[newX][newY].value == field.value) {
@@ -111,7 +98,7 @@ export class Board extends Phaser.GameObjects.Container {
 
         if (field.value == 6144 && !this.won) {
           this.won = true;
-          setTimeout(function() {
+          setTimeout(function () {
             alert("Congratulations. You Won! But you still can keep playing.");
           }, 200);
         }
@@ -150,12 +137,12 @@ export class Board extends Phaser.GameObjects.Container {
     }
     this.scene.add.tween({
       targets: [newField.tileSprite, newField.tileText],
-      alpha: { value: 1, duration: 100 }
+      alpha: { value: 1, duration: 100 },
     });
 
     this.scene.add.tween({
       targets: [field.tileSprite, field.tileText],
-      alpha: { value: 0, duration: 100 }
+      alpha: { value: 0, duration: 100 },
     });
   }
 
@@ -168,8 +155,8 @@ export class Board extends Phaser.GameObjects.Container {
 
   addRandom() {
     let emptyFields = [];
-    this.fieldArray.forEach(function(fields) {
-      fields.forEach(function(field) {
+    this.fieldArray.forEach(function (fields) {
+      fields.forEach(function (field) {
         if (field.value == 0) emptyFields.push(field);
       });
     });
@@ -186,14 +173,14 @@ export class Board extends Phaser.GameObjects.Container {
     field.tileText.setText(n);
     this.scene.add.tween({
       targets: [field.tileSprite, field.tileText],
-      alpha: { value: 1, duration: 1000, ease: "Bounce" }
+      alpha: { value: 1, duration: 1000, ease: "Bounce" },
     });
 
     field.value = n;
   }
 
   _buildHitArea() {
-    this.scene.input.on("pointerdown", pointer => {
+    this.scene.input.on("pointerdown", (pointer) => {
       const { x: downX, y: downY } = pointer;
 
       this.scene.input.on("pointerup", () => {
@@ -218,7 +205,7 @@ export class Board extends Phaser.GameObjects.Container {
   }
   event() {
     let that = this;
-    document.addEventListener("keyup", function(e) {
+    document.addEventListener("keyup", function (e) {
       let button = e.which || e.keyCode;
       this.pressed = true;
       if (this.pressed) {
